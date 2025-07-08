@@ -1,0 +1,326 @@
+/* Admin styles for Dynamic Product Configurator */
+
+.dpc-upload-section {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+.dpc-upload-form .form-table th {
+    width: 200px;
+    vertical-align: top;
+    padding-top: 15px;
+}
+
+.dpc-upload-form .form-table td {
+    padding-bottom: 20px;
+}
+
+.dpc-upload-form input[type="file"] {
+    width: 100%;
+    max-width: 400px;
+}
+
+.dpc-upload-options {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f9f9f9;
+    border-left: 4px solid #0073aa;
+}
+
+.dpc-upload-options label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.dpc-csv-format-help {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f0f6fc;
+    border: 1px solid #c3d9ff;
+    border-radius: 4px;
+}
+
+.dpc-csv-format-help h3 {
+    margin-top: 0;
+    color: #0073aa;
+}
+
+.dpc-csv-format-help h4 {
+    margin: 20px 0 10px 0;
+    color: #333;
+}
+
+.dpc-csv-format-help pre {
+    background: #fff;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.dpc-products-section {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+.dpc-products-section .tablenav {
+    margin-bottom: 20px;
+}
+
+.dpc-products-section #dpc-search-products {
+    margin-right: 10px;
+}
+
+.dpc-settings-section {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+/* Status indicators */
+.dpc-status {
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.dpc-status-pending {
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
+}
+
+.dpc-status-processing {
+    background: #cce5ff;
+    color: #004085;
+    border: 1px solid #99d6ff;
+}
+
+.dpc-status-completed {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.dpc-status-cancelled {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Progress indicator */
+.dpc-progress {
+    margin-top: 10px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    overflow: hidden;
+    height: 4px;
+}
+
+.dpc-progress-bar {
+    height: 100%;
+    background: #0073aa;
+    animation: dpc-progress 2s linear infinite;
+}
+
+@keyframes dpc-progress {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Modal styles */
+.dpc-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dpc-modal-content {
+    background: white;
+    border-radius: 4px;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.dpc-modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f9f9f9;
+}
+
+.dpc-modal-header h3 {
+    margin: 0;
+    color: #333;
+}
+
+.dpc-modal-close {
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    line-height: 1;
+    padding: 5px;
+}
+
+.dpc-modal-close:hover {
+    color: #000;
+}
+
+.dpc-modal-body {
+    padding: 20px;
+}
+
+.dpc-product-details h4 {
+    margin: 20px 0 10px 0;
+    color: #0073aa;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+
+.dpc-product-details h5 {
+    margin: 15px 0 5px 0;
+    color: #333;
+}
+
+.dpc-product-details table {
+    margin-bottom: 20px;
+}
+
+.dpc-product-details ul {
+    margin-left: 20px;
+}
+
+.dpc-product-details li {
+    margin-bottom: 5px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .dpc-modal-content {
+        margin: 20px;
+        max-width: none;
+        max-height: calc(100vh - 40px);
+    }
+    
+    .dpc-upload-form .form-table th,
+    .dpc-upload-form .form-table td {
+        display: block;
+        width: 100%;
+    }
+    
+    .dpc-upload-form .form-table th {
+        padding-bottom: 5px;
+    }
+    
+    .dpc-csv-format-help pre {
+        font-size: 10px;
+    }
+}
+
+/* Tab content styling */
+.tab-content {
+    margin-top: 0;
+}
+
+.nav-tab-wrapper {
+    margin-bottom: 0;
+}
+
+/* Error and success messages */
+.dpc-error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+.dpc-success {
+    background: #d4edda;
+    color: #155724;
+    padding: 15px;
+    border: 1px solid #c3e6cb;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+/* Loading states */
+.dpc-loading {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
+
+.dpc-loading:before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #0073aa;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Button improvements */
+.button.dpc-view-product,
+.button.dpc-view-request {
+    font-size: 12px;
+    padding: 4px 8px;
+    height: auto;
+    line-height: 1.4;
+}
+
+/* Table improvements */
+.wp-list-table .column-actions {
+    width: 80px;
+}
+
+.wp-list-table code {
+    background: #f1f1f1;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-size: 11px;
+}
+
+/* Form improvements */
+.form-table input[type="number"] {
+    width: 80px;
+}
+
+.form-table .description {
+    font-style: italic;
+    color: #666;
+    margin-top: 5px;
+}

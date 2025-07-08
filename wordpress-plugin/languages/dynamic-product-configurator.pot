@@ -1,0 +1,199 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Dynamic Product Configurator 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-01 12:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: dynamic-product-configurator.php:25
+msgid "Dynamic Product Configurator requires WooCommerce to be installed and active."
+msgstr ""
+
+#: includes/class-product-manager.php:25
+msgid "Enable Dynamic Configuration"
+msgstr ""
+
+#: includes/class-product-manager.php:26
+msgid "Enable CSV-based dynamic configuration for this product"
+msgstr ""
+
+#: includes/class-product-manager.php:31
+msgid "DPC Product ID"
+msgstr ""
+
+#: includes/class-product-manager.php:32
+msgid "Link this WooCommerce product to a CSV product ID"
+msgstr ""
+
+#: includes/class-csv-parser.php:20
+msgid "Products CSV file not found"
+msgstr ""
+
+#: includes/class-csv-parser.php:25
+msgid "Could not open products CSV file"
+msgstr ""
+
+#: includes/class-csv-parser.php:31
+msgid "Invalid CSV format - no headers found"
+msgstr ""
+
+#: includes/class-csv-parser.php:39
+#, php-format
+msgid "Missing required headers: %s"
+msgstr ""
+
+#: includes/class-csv-parser.php:67
+#, php-format
+msgid "Row %d: %s"
+msgstr ""
+
+#: admin/class-admin-page.php:25
+msgid "Dynamic Product Configurator"
+msgstr ""
+
+#: admin/class-admin-page.php:26
+msgid "Product Configurator"
+msgstr ""
+
+#: admin/class-admin-page.php:32
+msgid "Bulk Requests"
+msgstr ""
+
+#: admin/class-admin-page.php:58
+msgid "CSV files processed successfully!"
+msgstr ""
+
+#: admin/class-admin-page.php:61
+msgid "Unknown error occurred"
+msgstr ""
+
+#: admin/class-admin-page.php:74
+msgid "CSV Upload"
+msgstr ""
+
+#: admin/class-admin-page.php:77
+msgid "Products"
+msgstr ""
+
+#: admin/class-admin-page.php:80
+msgid "Settings"
+msgstr ""
+
+#: admin/class-admin-page.php:100
+msgid "Upload CSV Files"
+msgstr ""
+
+#: admin/class-admin-page.php:101
+msgid "Upload your CSV files to import products, attributes, and complementary products."
+msgstr ""
+
+#: admin/class-admin-page.php:108
+msgid "Products CSV"
+msgstr ""
+
+#: admin/class-admin-page.php:112
+msgid "Required: Contains main product information (product_id, product_name, base_price, category, attribute_types)"
+msgstr ""
+
+#: admin/class-admin-page.php:118
+msgid "Attributes CSV"
+msgstr ""
+
+#: admin/class-admin-page.php:122
+msgid "Required: Contains product attributes and variations (product_id, attribute_type, attribute_value, attribute_label, price_modifier)"
+msgstr ""
+
+#: admin/class-admin-page.php:128
+msgid "Complementary Products CSV"
+msgstr ""
+
+#: admin/class-admin-page.php:132
+msgid "Optional: Contains related/add-on products (main_product_id, complementary_product_id, complementary_name, price)"
+msgstr ""
+
+#: admin/class-admin-page.php:138
+msgid "Automatically create WooCommerce products"
+msgstr ""
+
+#: admin/class-admin-page.php:142
+msgid "Update existing products"
+msgstr ""
+
+#: admin/class-admin-page.php:146
+msgid "Upload and Process CSV Files"
+msgstr ""
+
+#: templates/product-configurator.php:45
+msgid "Category:"
+msgstr ""
+
+#: templates/product-configurator.php:56
+msgid "Configure Your Product"
+msgstr ""
+
+#: templates/product-configurator.php:65
+#, php-format
+msgid "Select Your %s:"
+msgstr ""
+
+#: templates/product-configurator.php:70
+#, php-format
+msgid "Choose %s"
+msgstr ""
+
+#: templates/product-configurator.php:80
+#, php-format
+msgid "Please select your %s"
+msgstr ""
+
+#: templates/product-configurator.php:91
+msgid "Add Complementary Items"
+msgstr ""
+
+#: templates/product-configurator.php:125
+msgid "Quantity:"
+msgstr ""
+
+#: templates/product-configurator.php:137
+msgid "Base Price:"
+msgstr ""
+
+#: templates/product-configurator.php:142
+msgid "Attribute Modifiers:"
+msgstr ""
+
+#: templates/product-configurator.php:147
+msgid "Complementary Items:"
+msgstr ""
+
+#: templates/product-configurator.php:152
+msgid "Total Price:"
+msgstr ""
+
+#: templates/product-configurator.php:160
+msgid "ADD TO CART"
+msgstr ""
+
+#: templates/product-configurator.php:161
+msgid "ADDING..."
+msgstr ""
+
+#: templates/product-configurator.php:165
+msgid "Request Bulk Quote"
+msgstr ""
+
+#: templates/product-configurator.php:175
+msgid "Your Configuration:"
+msgstr ""
