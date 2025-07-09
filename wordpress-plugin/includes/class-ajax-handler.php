@@ -32,6 +32,8 @@ class DPC_AJAX_Handler {
         
         // Product parsing AJAX handlers
         add_action('wp_ajax_dpc_get_parsing_stats', array($this, 'get_parsing_stats'));
+        add_action('wp_ajax_dpc_parse_existing_products', array($this, 'parse_existing_products'));
+        add_action('wp_ajax_dpc_auto_enable_all_products', array($this, 'auto_enable_all_products'));
         add_action('wp_ajax_dpc_get_brands_list', array($this, 'get_brands_list'));
         add_action('wp_ajax_dpc_get_models_for_brand', array($this, 'get_models_for_brand'));
     }
@@ -264,6 +266,34 @@ class DPC_AJAX_Handler {
     }
     
     /**
+     * Parse existing products
+     */
+    public function parse_existing_products() {
+        check_ajax_referer('dpc_nonce', 'nonce');
+        
+        if (!current_user_can('manage_woocommerce')) {
+            wp_send_json_error('Insufficient permissions');
+        }
+        
+        $parser = new DPC_WC_Product_Parser();
+        $parser->parse_existing_products();
+    }
+    
+    /**
+     * Auto enable all products
+     */
+    public function auto_enable_all_products() {
+        check_ajax_referer('dpc_nonce', 'nonce');
+        
+        if (!current_user_can('manage_woocommerce')) {
+            wp_send_json_error('Insufficient permissions');
+        }
+        
+        $parser = new DPC_WC_Product_Parser();
+        $parser->auto_enable_all_products();
+    }
+    
+    /**
      * Get parsing statistics
      */
     public function get_parsing_stats() {
@@ -273,34 +303,10 @@ class DPC_AJAX_Handler {
             wp_send_json_error('Insufficient permissions');
         }
         
-        global $wpdb;
+        $parser = new DPC_WC_Product_Parser();
+        $stats = $parser->get_parsing_stats();
         
-        // Get total WooCommerce products
-        $total_wc_products = $wpdb->get_var(
-            "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = 'product' AND post_status = 'publish'"
-        );
-        
-        // Get DPC enabled products
-        $dpc_enabled_products = $wpdb->get_var(
-            "SELECT COUNT(*) FROM {$wpdb->prefix}dpc_products"
-        );
-        
-        // Get total brands
-        $total_brands = $wpdb->get_var(
-            "SELECT COUNT(DISTINCT attribute_value) FROM {$wpdb->prefix}dpc_product_attributes WHERE attribute_type = 'brand'"
-        );
-        
-        // Get total models
-        $total_models = $wpdb->get_var(
-            "SELECT COUNT(DISTINCT attribute_value) FROM {$wpdb->prefix}dpc_product_attributes WHERE attribute_type = 'model'"
-        );
-        
-        wp_send_json_success(array(
-            'total_wc_products' => intval($total_wc_products),
-            'dpc_enabled_products' => intval($dpc_enabled_products),
-            'total_brands' => intval($total_brands),
-            'total_models' => intval($total_models)
-        ));
+        wp_send_json_success($stats);
     }
     
     /**

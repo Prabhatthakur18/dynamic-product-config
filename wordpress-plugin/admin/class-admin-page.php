@@ -91,8 +91,8 @@ class DPC_Admin_Page {
                 <a href="?page=dpc-admin&tab=settings" class="nav-tab <?php echo $active_tab === 'settings' ? 'nav-tab-active' : ''; ?>">
                     <?php _e('Settings', 'dynamic-product-configurator'); ?>
                 </a>
-                <a href="?page=dpc-admin&tab=parser" class="nav-tab <?php echo $active_tab === 'parser' ? 'nav-tab-active' : ''; ?>">
-                    <?php _e('Product Parser', 'dynamic-product-configurator'); ?>
+                <a href="?page=dpc-admin&tab=parser" class="nav-tab <?php echo $active_tab === 'parser' ? 'nav-tab-active' : ''; ?>" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-weight: bold;">
+                    <?php _e('🚀 Auto Parser', 'dynamic-product-configurator'); ?>
                 </a>
             </nav>
             
@@ -123,9 +123,13 @@ class DPC_Admin_Page {
      */
     private function render_upload_tab() {
         ?>
+        <div class="notice notice-info">
+            <p><strong>💡 Pro Tip:</strong> You don't need to upload CSV files anymore! Use the <strong>🚀 Auto Parser</strong> tab to automatically extract Brand/Model from your existing products.</p>
+        </div>
+        
         <div class="dpc-upload-section">
-            <h2><?php _e('Upload CSV Files', 'dynamic-product-configurator'); ?></h2>
-            <p><?php _e('Upload your CSV files to import products, attributes, and complementary products.', 'dynamic-product-configurator'); ?></p>
+            <h2><?php _e('Manual CSV Upload (Optional)', 'dynamic-product-configurator'); ?></h2>
+            <p><?php _e('Only use this if you want to manually override the automatic parsing system.', 'dynamic-product-configurator'); ?></p>
             
             <form method="post" action="<?php echo admin_url('admin-post.php'); ?>" enctype="multipart/form-data" class="dpc-upload-form">
                 <?php wp_nonce_field('dpc_upload_csv', 'dpc_nonce'); ?>
