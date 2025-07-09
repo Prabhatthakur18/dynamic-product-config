@@ -1,0 +1,7 @@
+product_id,product_name,base_price,image_url,category,attribute_types
+samsung-s8-case-001,Samsung Galaxy S8 Back Cover,199,https://gizmobitz.com/wp-content/uploads/2025/06/Samsung-Galaxy-S8-happy-yellow-smiley-face-wearing-glasses-giving-thumbs-up.jpg,mobile-back-cover,"brand,model"
+samsung-s8plus-case-001,Samsung Galaxy S8 Plus Back Cover,199,https://gizmobitz.com/wp-content/uploads/2025/06/Samsung-Galaxy-S8-Plus-happy-friendship-day-text-with-suitable-image-friendship-celebration.jpg,mobile-back-cover,"brand,model"
+samsung-s9-case-001,Samsung Galaxy S9 Back Cover,199,https://gizmobitz.com/wp-content/uploads/2025/06/Samsung-Galaxy-S9-happy-friendship-day-text-with-suitable-image-friendship-celebration.jpg,mobile-back-cover,"brand,model"
+samsung-s9plus-case-001,Samsung Galaxy S9 Plus Back Cover,199,https://gizmobitz.com/wp-content/uploads/2025/06/Samsung-Galaxy-S9-Plus-happy-friendship-day-text-with-suitable-image-friendship-celebration.jpg,mobile-back-cover,"brand,model"
+iphone-12-case-001,iPhone 12 Back Cover,249,https://example.com/iphone12.jpg,mobile-back-cover,"brand,model"
+oneplus-9-case-001,OnePlus 9 Back Cover,179,https://example.com/oneplus9.jpg,mobile-back-cover,"brand,model"

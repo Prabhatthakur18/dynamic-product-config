@@ -82,6 +82,7 @@ class DynamicProductConfigurator {
         new DPC_Admin_Page();
         new DPC_Frontend_Handler();
         new DPC_AJAX_Handler();
+        new DPC_WC_Product_Parser();
         
         // Add shortcode
         add_shortcode('dynamic_product_configurator', array($this, 'shortcode_handler'));
@@ -96,6 +97,7 @@ class DynamicProductConfigurator {
         require_once DPC_PLUGIN_DIR . 'includes/class-woocommerce-integration.php';
         require_once DPC_PLUGIN_DIR . 'includes/class-frontend-handler.php';
         require_once DPC_PLUGIN_DIR . 'includes/class-ajax-handler.php';
+        require_once DPC_PLUGIN_DIR . 'includes/class-wc-product-parser.php';
         require_once DPC_PLUGIN_DIR . 'admin/class-admin-page.php';
     }
     

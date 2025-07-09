@@ -69,25 +69,24 @@ Create your CSV files following these formats:
 #### Products CSV (`products.csv`)
 ```csv
 product_id,product_name,base_price,image_url,category,attribute_types
-phone-case-001,3 Color Gimp Snap Case,99.00,https://example.com/image.jpg,phone-case,"brand,model"
-headphones-001,Wireless Earbuds Pro,299.00,https://example.com/image2.jpg,audio,"brand,color"
+samsung-s8-case-001,Samsung Galaxy S8 Back Cover,199,https://gizmobitz.com/wp-content/uploads/2025/06/Samsung-Galaxy-S8-happy-yellow-smiley-face-wearing-glasses-giving-thumbs-up.jpg,mobile-back-cover,"brand,model"
+samsung-s9-case-001,Samsung Galaxy S9 Back Cover,199,https://gizmobitz.com/wp-content/uploads/2025/06/Samsung-Galaxy-S9-happy-friendship-day-text-with-suitable-image-friendship-celebration.jpg,mobile-back-cover,"brand,model"
 ```
 
 #### Attributes CSV (`attributes.csv`)
 ```csv
 product_id,attribute_type,attribute_value,attribute_label,price_modifier
-phone-case-001,brand,vivo,Vivo,0
-phone-case-001,brand,samsung,Samsung,0
-phone-case-001,brand,apple,Apple,25
-phone-case-001,model,v15,V15,0
-phone-case-001,model,v20,V20,50
+samsung-s8-case-001,brand,samsung,Samsung,0
+samsung-s8-case-001,model,galaxy-s8,Galaxy S8,0
+samsung-s9-case-001,brand,samsung,Samsung,0
+samsung-s9-case-001,model,galaxy-s9,Galaxy S9,0
 ```
 
 #### Complementary Products CSV (`complementary.csv`)
 ```csv
 main_product_id,complementary_product_id,complementary_name,price,original_price,image_url
-phone-case-001,screen-guard-001,Add Flexible Glass Screen Guard,29.00,39.00,https://example.com/guard.jpg
-phone-case-001,key-chain-001,Add Same Design Key Chain,29.00,39.00,https://example.com/keychain.jpg
+samsung-s8-case-001,screen-guard-s8,Samsung Galaxy S8 Screen Guard,29.00,39.00,https://example.com/guard.jpg
+samsung-s9-case-001,screen-guard-s9,Samsung Galaxy S9 Screen Guard,29.00,39.00,https://example.com/guard-s9.jpg
 ```
 
 ## 📊 CSV Upload Process
@@ -101,6 +100,11 @@ phone-case-001,key-chain-001,Add Same Design Key Chain,29.00,39.00,https://examp
 2. **Attributes CSV**: Required - Contains all product attributes and variations
 3. **Complementary CSV**: Optional - Contains related/add-on products
 
+### Step 3: Parse Existing Products (NEW!)
+1. Go to **Product Parser** tab
+2. Click **"Parse All Products"** to automatically extract Brand/Model from existing WooCommerce products
+3. Review the parsing results and manually adjust if needed
+
 ### Step 3: Process and Verify
 1. Click "Upload and Process CSV Files"
 2. System will:
@@ -108,6 +112,26 @@ phone-case-001,key-chain-001,Add Same Design Key Chain,29.00,39.00,https://examp
    - Create database entries
    - Generate WooCommerce products
    - Link relationships
+
+## 🔄 **Working with Existing Products**
+
+The plugin now includes a **Product Parser** that can automatically extract Brand and Model information from your existing WooCommerce products:
+
+### **Automatic Brand/Model Detection**
+- **Samsung**: Galaxy S8, S8 Plus, S9, S9 Plus, S10, S20, S21, Note series, A series, M series
+- **Apple**: iPhone 12, 12 Pro, 12 Mini, 11, 11 Pro, X, XS, 8, 7
+- **OnePlus**: OnePlus 9, 8, 7, Nord
+- **Xiaomi**: Redmi, Mi series
+- **Other Brands**: Oppo, Vivo, Realme, Huawei, Google Pixel, Motorola, Nokia, LG, Sony
+
+### **How It Works**
+1. **Analyzes Product Names**: Scans your existing WooCommerce product titles
+2. **Extracts Brand/Model**: Uses pattern matching to identify brands and models
+3. **Creates Dynamic Dropdowns**: Automatically generates the Brand and Model dropdown options
+4. **Links to Existing Products**: Connects the configurator to your current WooCommerce products
+
+### **Manual Override**
+For products that can't be automatically parsed, you can manually map them using the admin interface.
 
 ## 🛠️ Development Setup
 

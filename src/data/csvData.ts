@@ -5,48 +5,41 @@ export const parseCSVData = (): CSVProductData => {
   // This would be replaced with actual CSV parsing logic in WordPress
   const csvProductsData = [
     {
-      product_id: 'phone-case-001',
-      product_name: '3 Color Gimp Snap Case',
-      base_price: 99.00,
-      image_url: 'https://images.pexels.com/photos/5081918/pexels-photo-5081918.jpeg?auto=compress&cs=tinysrgb&w=400',
-      category: 'phone-case',
+      product_id: 'samsung-s8-case-001',
+      product_name: 'Samsung Galaxy S8 Back Cover',
+      base_price: 199.00,
+      image_url: 'https://gizmobitz.com/wp-content/uploads/2025/06/Samsung-Galaxy-S8-happy-yellow-smiley-face-wearing-glasses-giving-thumbs-up.jpg',
+      category: 'mobile-back-cover',
       attribute_types: ['brand', 'model']
     },
     {
-      product_id: 'headphones-001',
-      product_name: 'Wireless Earbuds Pro',
-      base_price: 299.00,
-      image_url: 'https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg?auto=compress&cs=tinysrgb&w=400',
-      category: 'audio',
-      attribute_types: ['brand', 'color']
+      product_id: 'samsung-s9-case-001',
+      product_name: 'Samsung Galaxy S9 Back Cover',
+      base_price: 199.00,
+      image_url: 'https://gizmobitz.com/wp-content/uploads/2025/06/Samsung-Galaxy-S9-happy-friendship-day-text-with-suitable-image-friendship-celebration.jpg',
+      category: 'mobile-back-cover',
+      attribute_types: ['brand', 'model']
     }
   ];
 
   const csvAttributesData = [
-    // Phone Case Attributes
-    { product_id: 'phone-case-001', attribute_type: 'brand', attribute_value: 'vivo', attribute_label: 'Vivo', price_modifier: 0 },
-    { product_id: 'phone-case-001', attribute_type: 'brand', attribute_value: 'samsung', attribute_label: 'Samsung', price_modifier: 0 },
-    { product_id: 'phone-case-001', attribute_type: 'brand', attribute_value: 'apple', attribute_label: 'Apple', price_modifier: 25 },
-    { product_id: 'phone-case-001', attribute_type: 'brand', attribute_value: 'xiaomi', attribute_label: 'Xiaomi', price_modifier: 0 },
+    // Samsung S8 Case Attributes
+    { product_id: 'samsung-s8-case-001', attribute_type: 'brand', attribute_value: 'samsung', attribute_label: 'Samsung', price_modifier: 0 },
+    { product_id: 'samsung-s8-case-001', attribute_type: 'model', attribute_value: 'galaxy-s8', attribute_label: 'Galaxy S8', price_modifier: 0 },
     
-    { product_id: 'phone-case-001', attribute_type: 'model', attribute_value: 'v15', attribute_label: 'V15', price_modifier: 0 },
-    { product_id: 'phone-case-001', attribute_type: 'model', attribute_value: 'v20', attribute_label: 'V20', price_modifier: 50 },
-    { product_id: 'phone-case-001', attribute_type: 'model', attribute_value: 'v25', attribute_label: 'V25', price_modifier: 100 },
+    // Samsung S9 Case Attributes
+    { product_id: 'samsung-s9-case-001', attribute_type: 'brand', attribute_value: 'samsung', attribute_label: 'Samsung', price_modifier: 0 },
+    { product_id: 'samsung-s9-case-001', attribute_type: 'model', attribute_value: 'galaxy-s9', attribute_label: 'Galaxy S9', price_modifier: 0 },
     
-    // Headphones Attributes
-    { product_id: 'headphones-001', attribute_type: 'brand', attribute_value: 'sony', attribute_label: 'Sony', price_modifier: 0 },
-    { product_id: 'headphones-001', attribute_type: 'brand', attribute_value: 'bose', attribute_label: 'Bose', price_modifier: 100 },
-    { product_id: 'headphones-001', attribute_type: 'brand', attribute_value: 'apple', attribute_label: 'Apple', price_modifier: 150 },
-    
-    { product_id: 'headphones-001', attribute_type: 'color', attribute_value: 'black', attribute_label: 'Black', price_modifier: 0 },
-    { product_id: 'headphones-001', attribute_type: 'color', attribute_value: 'white', attribute_label: 'White', price_modifier: 0 },
-    { product_id: 'headphones-001', attribute_type: 'color', attribute_value: 'red', attribute_label: 'Red', price_modifier: 25 },
+    // Additional brands and models can be added here
+    { product_id: 'apple-iphone12-case-001', attribute_type: 'brand', attribute_value: 'apple', attribute_label: 'Apple', price_modifier: 25 },
+    { product_id: 'apple-iphone12-case-001', attribute_type: 'model', attribute_value: 'iphone-12', attribute_label: 'iPhone 12', price_modifier: 50 },
   ];
 
   const csvComplementaryData = [
-    { main_product_id: 'phone-case-001', complementary_product_id: 'screen-guard-001', complementary_name: 'Add Flexible Glass Screen Guard', price: 29.00, original_price: 39.00, image_url: 'https://images.pexels.com/photos/5081918/pexels-photo-5081918.jpeg?auto=compress&cs=tinysrgb&w=200' },
-    { main_product_id: 'phone-case-001', complementary_product_id: 'key-chain-001', complementary_name: 'Add Same Design Key Chain', price: 29.00, original_price: 39.00, image_url: 'https://images.pexels.com/photos/5081918/pexels-photo-5081918.jpeg?auto=compress&cs=tinysrgb&w=200' },
-    { main_product_id: 'phone-case-001', complementary_product_id: 'phone-grip-001', complementary_name: 'Add Same Design Phone Grip', price: 49.00, original_price: 129.00, image_url: 'https://images.pexels.com/photos/5081918/pexels-photo-5081918.jpeg?auto=compress&cs=tinysrgb&w=200' },
+    { main_product_id: 'samsung-s8-case-001', complementary_product_id: 'screen-guard-s8', complementary_name: 'Samsung Galaxy S8 Screen Guard', price: 29.00, original_price: 39.00, image_url: 'https://example.com/screen-guard.jpg' },
+    { main_product_id: 'samsung-s8-case-001', complementary_product_id: 'phone-grip-s8', complementary_name: 'Samsung Galaxy S8 Phone Grip', price: 49.00, original_price: 129.00, image_url: 'https://example.com/phone-grip.jpg' },
+    { main_product_id: 'samsung-s9-case-001', complementary_product_id: 'screen-guard-s9', complementary_name: 'Samsung Galaxy S9 Screen Guard', price: 29.00, original_price: 39.00, image_url: 'https://example.com/screen-guard-s9.jpg' },
   ];
 
   // Process the data into our structure

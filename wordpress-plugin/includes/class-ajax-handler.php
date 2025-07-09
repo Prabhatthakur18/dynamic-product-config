@@ -29,6 +29,11 @@ class DPC_AJAX_Handler {
         add_action('wp_ajax_nopriv_dpc_add_to_cart', array($this, 'ajax_add_to_cart'));
         add_action('wp_ajax_nopriv_dpc_submit_bulk_request', array($this, 'submit_bulk_request'));
         add_action('wp_ajax_nopriv_dpc_search_products', array($this, 'search_products'));
+        
+        // Product parsing AJAX handlers
+        add_action('wp_ajax_dpc_get_parsing_stats', array($this, 'get_parsing_stats'));
+        add_action('wp_ajax_dpc_get_brands_list', array($this, 'get_brands_list'));
+        add_action('wp_ajax_dpc_get_models_for_brand', array($this, 'get_models_for_brand'));
     }
     
     /**
@@ -256,6 +261,84 @@ class DPC_AJAX_Handler {
                 'message' => __('Error searching products', 'dynamic-product-configurator')
             ));
         }
+    }
+    
+    /**
+     * Get parsing statistics
+     */
+    public function get_parsing_stats() {
+        check_ajax_referer('dpc_nonce', 'nonce');
+        
+        if (!current_user_can('manage_woocommerce')) {
+            wp_send_json_error('Insufficient permissions');
+        }
+        
+        global $wpdb;
+        
+        // Get total WooCommerce products
+        $total_wc_products = $wpdb->get_var(
+            "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = 'product' AND post_status = 'publish'"
+        );
+        
+        // Get DPC enabled products
+        $dpc_enabled_products = $wpdb->get_var(
+            "SELECT COUNT(*) FROM {$wpdb->prefix}dpc_products"
+        );
+        
+        // Get total brands
+        $total_brands = $wpdb->get_var(
+            "SELECT COUNT(DISTINCT attribute_value) FROM {$wpdb->prefix}dpc_product_attributes WHERE attribute_type = 'brand'"
+        );
+        
+        // Get total models
+        $total_models = $wpdb->get_var(
+            "SELECT COUNT(DISTINCT attribute_value) FROM {$wpdb->prefix}dpc_product_attributes WHERE attribute_type = 'model'"
+        );
+        
+        wp_send_json_success(array(
+            'total_wc_products' => intval($total_wc_products),
+            'dpc_enabled_products' => intval($dpc_enabled_products),
+            'total_brands' => intval($total_brands),
+            'total_models' => intval($total_models)
+        ));
+    }
+    
+    /**
+     * Get brands list
+     */
+    public function get_brands_list() {
+        check_ajax_referer('dpc_nonce', 'nonce');
+        
+        if (!current_user_can('manage_woocommerce')) {
+            wp_send_json_error('Insufficient permissions');
+        }
+        
+        $parser = new DPC_WC_Product_Parser();
+        $brands = $parser->get_available_brands();
+        
+        wp_send_json_success($brands);
+    }
+    
+    /**
+     * Get models for specific brand
+     */
+    public function get_models_for_brand() {
+        check_ajax_referer('dpc_nonce', 'nonce');
+        
+        if (!current_user_can('manage_woocommerce')) {
+            wp_send_json_error('Insufficient permissions');
+        }
+        
+        $brand = sanitize_text_field($_POST['brand']);
+        
+        if (empty($brand)) {
+            wp_send_json_error('Brand is required');
+        }
+        
+        $parser = new DPC_WC_Product_Parser();
+        $models = $parser->get_models_for_brand($brand);
+        
+        wp_send_json_success($models);
     }
     
     /**

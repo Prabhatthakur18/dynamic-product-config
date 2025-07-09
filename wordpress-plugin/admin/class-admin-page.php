@@ -91,6 +91,9 @@ class DPC_Admin_Page {
                 <a href="?page=dpc-admin&tab=settings" class="nav-tab <?php echo $active_tab === 'settings' ? 'nav-tab-active' : ''; ?>">
                     <?php _e('Settings', 'dynamic-product-configurator'); ?>
                 </a>
+                <a href="?page=dpc-admin&tab=parser" class="nav-tab <?php echo $active_tab === 'parser' ? 'nav-tab-active' : ''; ?>">
+                    <?php _e('Product Parser', 'dynamic-product-configurator'); ?>
+                </a>
             </nav>
             
             <div class="tab-content">
@@ -104,6 +107,9 @@ class DPC_Admin_Page {
                         break;
                     case 'settings':
                         $this->render_settings_tab();
+                        break;
+                    case 'parser':
+                        $this->render_parser_tab();
                         break;
                 }
                 ?>
@@ -314,6 +320,13 @@ phone-case-001,key-chain-001,Add Same Design Key Chain,29.00,39.00,https://examp
             </form>
         </div>
         <?php
+    }
+    
+    /**
+     * Render parser tab
+     */
+    private function render_parser_tab() {
+        include DPC_PLUGIN_DIR . 'admin/views/product-parser.php';
     }
     
     /**
