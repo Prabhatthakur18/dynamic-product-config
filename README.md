@@ -391,8 +391,8 @@ This project is licensed under the GPL v2 or later - see the [LICENSE](LICENSE) 
 
 ### Professional Support
 For custom development and priority support:
-- Email: support@yourcompany.com
-- Website: https://yourcompany.com/support
+- Email: ck.8107@gmail.com
+- Website: ck.8107@gmail.com
 
 ## 🎯 Roadmap
 
