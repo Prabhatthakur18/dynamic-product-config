@@ -156,7 +156,7 @@ class DPC_Frontend_Handler {
     /**
      * Prepare product data for frontend
      */
-    private function prepare_product_data($dpc_product_data) {
+    public function prepare_product_data($dpc_product_data) {
         $product = $dpc_product_data['product'];
         $attributes = $dpc_product_data['attributes'];
         $complementary = $dpc_product_data['complementary'];

@@ -188,17 +188,31 @@ class DynamicProductConfigurator {
     public function shortcode_handler($atts) {
         $atts = shortcode_atts(array(
             'product_id' => '',
+            'type' => 'product', // 'product' or 'selector'
             'class' => '',
         ), $atts);
         
         ob_start();
-        ?>
-        <div id="dynamic-product-configurator" 
-             class="dpc-configurator <?php echo esc_attr($atts['class']); ?>" 
-             data-product-id="<?php echo esc_attr($atts['product_id']); ?>">
-            <div class="dpc-loading">Loading configurator...</div>
-        </div>
-        <?php
+        
+        if ($atts['type'] === 'selector') {
+            // Brand/Model selector
+            ?>
+            <div id="dynamic-product-selector" 
+                 class="dpc-configurator dpc-brand-selector <?php echo esc_attr($atts['class']); ?>">
+                <div class="dpc-loading">Loading brand selector...</div>
+            </div>
+            <?php
+        } else {
+            // Specific product configurator
+            ?>
+            <div id="dynamic-product-configurator" 
+                 class="dpc-configurator <?php echo esc_attr($atts['class']); ?>" 
+                 data-product-id="<?php echo esc_attr($atts['product_id']); ?>">
+                <div class="dpc-loading">Loading configurator...</div>
+            </div>
+            <?php
+        }
+        
         return ob_get_clean();
     }
     

@@ -29,6 +29,9 @@ class DPC_AJAX_Handler {
         add_action('wp_ajax_nopriv_dpc_add_to_cart', array($this, 'ajax_add_to_cart'));
         add_action('wp_ajax_nopriv_dpc_submit_bulk_request', array($this, 'submit_bulk_request'));
         add_action('wp_ajax_nopriv_dpc_search_products', array($this, 'search_products'));
+        add_action('wp_ajax_nopriv_dpc_get_brands_list', array($this, 'get_brands_list'));
+        add_action('wp_ajax_nopriv_dpc_get_models_for_brand', array($this, 'get_models_for_brand'));
+        add_action('wp_ajax_nopriv_dpc_get_products_by_brand_model', array($this, 'get_products_by_brand_model'));
         
         // Product parsing AJAX handlers
         add_action('wp_ajax_dpc_get_parsing_stats', array($this, 'get_parsing_stats'));
@@ -36,6 +39,7 @@ class DPC_AJAX_Handler {
         add_action('wp_ajax_dpc_auto_enable_all_products', array($this, 'auto_enable_all_products'));
         add_action('wp_ajax_dpc_get_brands_list', array($this, 'get_brands_list'));
         add_action('wp_ajax_dpc_get_models_for_brand', array($this, 'get_models_for_brand'));
+        add_action('wp_ajax_dpc_get_products_by_brand_model', array($this, 'get_products_by_brand_model'));
     }
     
     /**
@@ -315,9 +319,7 @@ class DPC_AJAX_Handler {
     public function get_brands_list() {
         check_ajax_referer('dpc_nonce', 'nonce');
         
-        if (!current_user_can('manage_woocommerce')) {
-            wp_send_json_error('Insufficient permissions');
-        }
+        // Allow both admin and frontend users to get brands
         
         $parser = new DPC_WC_Product_Parser();
         $brands = $parser->get_available_brands();
@@ -331,9 +333,7 @@ class DPC_AJAX_Handler {
     public function get_models_for_brand() {
         check_ajax_referer('dpc_nonce', 'nonce');
         
-        if (!current_user_can('manage_woocommerce')) {
-            wp_send_json_error('Insufficient permissions');
-        }
+        // Allow both admin and frontend users to get models
         
         $brand = sanitize_text_field($_POST['brand']);
         
@@ -345,6 +345,25 @@ class DPC_AJAX_Handler {
         $models = $parser->get_models_for_brand($brand);
         
         wp_send_json_success($models);
+    }
+    
+    /**
+     * Get products by brand and model
+     */
+    public function get_products_by_brand_model() {
+        check_ajax_referer('dpc_nonce', 'nonce');
+        
+        $brand = sanitize_text_field($_POST['brand']);
+        $model = sanitize_text_field($_POST['model']);
+        
+        if (empty($brand) || empty($model)) {
+            wp_send_json_error('Brand and model are required');
+        }
+        
+        $parser = new DPC_WC_Product_Parser();
+        $products = $parser->get_products_by_brand_model($brand, $model);
+        
+        wp_send_json_success($products);
     }
     
     /**

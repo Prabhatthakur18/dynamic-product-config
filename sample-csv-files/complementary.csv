@@ -1,0 +1,6 @@
+main_product_id,complementary_product_id,complementary_name,price,original_price,image_url
+samsung-s8-case-001,screen-guard-s8,Samsung Galaxy S8 Screen Guard,29.00,39.00,https://example.com/guard.jpg
+samsung-s8-case-001,phone-grip-s8,Samsung Galaxy S8 Phone Grip,49.00,129.00,https://example.com/grip.jpg
+samsung-s8-plus-case-001,screen-guard-s8-plus,Samsung Galaxy S8 Plus Screen Guard,29.00,39.00,https://example.com/guard-plus.jpg
+samsung-s9-case-001,screen-guard-s9,Samsung Galaxy S9 Screen Guard,29.00,39.00,https://example.com/guard-s9.jpg
+samsung-s9-plus-case-001,screen-guard-s9-plus,Samsung Galaxy S9 Plus Screen Guard,29.00,39.00,https://example.com/guard-s9-plus.jpg

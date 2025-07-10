@@ -1,8 +1,8 @@
 <?php
 /**
  * WooCommerce Product Parser Class
- * Automatically extracts brand and model information from existing WooCommerce products
- * NO CSV REQUIRED - Everything is parsed automatically
+ * Parses existing WooCommerce products and extracts brand/model information
+ * Fixed to work with actual product data structure
  */
 
 if (!defined('ABSPATH')) {
@@ -254,7 +254,8 @@ class DPC_WC_Product_Parser {
         }
         
         try {
-            $products = $this->get_woocommerce_products();
+            // Get all WooCommerce products
+            $products = $this->get_all_woocommerce_products();
             $parsed_count = 0;
             $errors = array();
             $skipped_count = 0;
@@ -293,7 +294,7 @@ class DPC_WC_Product_Parser {
         }
         
         try {
-            $products = $this->get_woocommerce_products();
+            $products = $this->get_all_woocommerce_products();
             $enabled_count = 0;
             
             foreach ($products as $product) {
@@ -313,19 +314,23 @@ class DPC_WC_Product_Parser {
     }
     
     /**
-     * Get WooCommerce products from mobile back cover category
+     * Get all WooCommerce products (not just mobile back covers)
      */
-    private function get_woocommerce_products() {
+    private function get_all_woocommerce_products() {
         $args = array(
             'post_type' => 'product',
             'posts_per_page' => -1,
             'post_status' => 'publish',
-            'tax_query' => array(
+            'meta_query' => array(
+                'relation' => 'OR',
                 array(
-                    'taxonomy' => 'product_cat',
-                    'field' => 'slug',
-                    'terms' => array('mobile-back-cover', 'phone-case', 'mobile-cover'),
-                    'operator' => 'IN'
+                    'key' => '_dpc_enabled',
+                    'compare' => 'NOT EXISTS'
+                ),
+                array(
+                    'key' => '_dpc_enabled',
+                    'value' => 'yes',
+                    'compare' => '!='
                 )
             )
         );
@@ -355,7 +360,8 @@ class DPC_WC_Product_Parser {
         // Get product details
         $wc_product = wc_get_product($wp_product->ID);
         $base_price = $wc_product->get_regular_price() ?: $wc_product->get_price();
-        $image_url = wp_get_attachment_image_url($wc_product->get_image_id(), 'full');
+        $image_id = $wc_product->get_image_id();
+        $image_url = $image_id ? wp_get_attachment_image_url($image_id, 'full') : '';
         
         // Get category
         $categories = wp_get_post_terms($wp_product->ID, 'product_cat');
@@ -442,7 +448,7 @@ class DPC_WC_Product_Parser {
         $id = strtolower($product_name);
         $id = preg_replace('/[^a-z0-9\s]/', '', $id);
         $id = preg_replace('/\s+/', '-', $id);
-        $id = substr($id, 0, 30);
+        $id = substr($id, 0, 50);
         return $id . '-' . $wc_id;
     }
     
@@ -538,17 +544,9 @@ class DPC_WC_Product_Parser {
     public function get_parsing_stats() {
         global $wpdb;
         
-        // Get total WooCommerce products in mobile categories
+        // Get total WooCommerce products
         $total_wc_products = $wpdb->get_var(
-            "SELECT COUNT(DISTINCT p.ID) 
-             FROM {$wpdb->posts} p
-             INNER JOIN {$wpdb->term_relationships} tr ON p.ID = tr.object_id
-             INNER JOIN {$wpdb->term_taxonomy} tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
-             INNER JOIN {$wpdb->terms} t ON tt.term_id = t.term_id
-             WHERE p.post_type = 'product' 
-             AND p.post_status = 'publish'
-             AND tt.taxonomy = 'product_cat'
-             AND t.slug IN ('mobile-back-cover', 'phone-case', 'mobile-cover')"
+            "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = 'product' AND post_status = 'publish'"
         );
         
         // Get DPC enabled products
@@ -572,5 +570,22 @@ class DPC_WC_Product_Parser {
             'total_brands' => intval($total_brands),
             'total_models' => intval($total_models)
         );
+    }
+    
+    /**
+     * Get products by brand and model
+     */
+    public function get_products_by_brand_model($brand, $model) {
+        global $wpdb;
+        
+        return $wpdb->get_results($wpdb->prepare(
+            "SELECT p.* FROM {$wpdb->prefix}dpc_products p
+             INNER JOIN {$wpdb->prefix}dpc_product_attributes pb ON p.product_id = pb.product_id
+             INNER JOIN {$wpdb->prefix}dpc_product_attributes pm ON p.product_id = pm.product_id
+             WHERE pb.attribute_type = 'brand' AND pb.attribute_value = %s
+             AND pm.attribute_type = 'model' AND pm.attribute_value = %s",
+            $brand,
+            $model
+        ));
     }
 }
