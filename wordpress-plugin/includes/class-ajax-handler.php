@@ -33,10 +33,6 @@ class DPC_AJAX_Handler {
         add_action('wp_ajax_nopriv_dpc_get_models_for_brand', array($this, 'get_models_for_brand'));
         add_action('wp_ajax_nopriv_dpc_get_products_by_brand_model', array($this, 'get_products_by_brand_model'));
         
-        // Product parsing AJAX handlers
-        add_action('wp_ajax_dpc_get_parsing_stats', array($this, 'get_parsing_stats'));
-        add_action('wp_ajax_dpc_parse_existing_products', array($this, 'parse_existing_products'));
-        add_action('wp_ajax_dpc_auto_enable_all_products', array($this, 'auto_enable_all_products'));
         add_action('wp_ajax_dpc_get_brands_list', array($this, 'get_brands_list'));
         add_action('wp_ajax_dpc_get_models_for_brand', array($this, 'get_models_for_brand'));
         add_action('wp_ajax_dpc_get_products_by_brand_model', array($this, 'get_products_by_brand_model'));
@@ -270,59 +266,19 @@ class DPC_AJAX_Handler {
     }
     
     /**
-     * Parse existing products
-     */
-    public function parse_existing_products() {
-        check_ajax_referer('dpc_nonce', 'nonce');
-        
-        if (!current_user_can('manage_woocommerce')) {
-            wp_send_json_error('Insufficient permissions');
-        }
-        
-        $parser = new DPC_WC_Product_Parser();
-        $parser->parse_existing_products();
-    }
-    
-    /**
-     * Auto enable all products
-     */
-    public function auto_enable_all_products() {
-        check_ajax_referer('dpc_nonce', 'nonce');
-        
-        if (!current_user_can('manage_woocommerce')) {
-            wp_send_json_error('Insufficient permissions');
-        }
-        
-        $parser = new DPC_WC_Product_Parser();
-        $parser->auto_enable_all_products();
-    }
-    
-    /**
-     * Get parsing statistics
-     */
-    public function get_parsing_stats() {
-        check_ajax_referer('dpc_nonce', 'nonce');
-        
-        if (!current_user_can('manage_woocommerce')) {
-            wp_send_json_error('Insufficient permissions');
-        }
-        
-        $parser = new DPC_WC_Product_Parser();
-        $stats = $parser->get_parsing_stats();
-        
-        wp_send_json_success($stats);
-    }
-    
-    /**
      * Get brands list
      */
     public function get_brands_list() {
         check_ajax_referer('dpc_nonce', 'nonce');
         
-        // Allow both admin and frontend users to get brands
+        global $wpdb;
         
-        $parser = new DPC_WC_Product_Parser();
-        $brands = $parser->get_available_brands();
+        $brands = $wpdb->get_results(
+            "SELECT DISTINCT attribute_value as brand, attribute_label as label 
+             FROM {$wpdb->prefix}dpc_product_attributes 
+             WHERE attribute_type = 'brand' 
+             ORDER BY attribute_label"
+        );
         
         wp_send_json_success($brands);
     }
@@ -333,16 +289,24 @@ class DPC_AJAX_Handler {
     public function get_models_for_brand() {
         check_ajax_referer('dpc_nonce', 'nonce');
         
-        // Allow both admin and frontend users to get models
-        
         $brand = sanitize_text_field($_POST['brand']);
         
         if (empty($brand)) {
             wp_send_json_error('Brand is required');
         }
         
-        $parser = new DPC_WC_Product_Parser();
-        $models = $parser->get_models_for_brand($brand);
+        global $wpdb;
+        
+        $models = $wpdb->get_results($wpdb->prepare(
+            "SELECT DISTINCT pa.attribute_value as model, pa.attribute_label as label 
+             FROM {$wpdb->prefix}dpc_product_attributes pa
+             INNER JOIN {$wpdb->prefix}dpc_product_attributes pb ON pa.product_id = pb.product_id
+             WHERE pa.attribute_type = 'model' 
+             AND pb.attribute_type = 'brand' 
+             AND pb.attribute_value = %s
+             ORDER BY pa.attribute_label",
+            $brand
+        ));
         
         wp_send_json_success($models);
     }
@@ -360,8 +324,17 @@ class DPC_AJAX_Handler {
             wp_send_json_error('Brand and model are required');
         }
         
-        $parser = new DPC_WC_Product_Parser();
-        $products = $parser->get_products_by_brand_model($brand, $model);
+        global $wpdb;
+        
+        $products = $wpdb->get_results($wpdb->prepare(
+            "SELECT p.* FROM {$wpdb->prefix}dpc_products p
+             INNER JOIN {$wpdb->prefix}dpc_product_attributes pb ON p.product_id = pb.product_id
+             INNER JOIN {$wpdb->prefix}dpc_product_attributes pm ON p.product_id = pm.product_id
+             WHERE pb.attribute_type = 'brand' AND pb.attribute_value = %s
+             AND pm.attribute_type = 'model' AND pm.attribute_value = %s",
+            $brand,
+            $model
+        ));
         
         wp_send_json_success($products);
     }

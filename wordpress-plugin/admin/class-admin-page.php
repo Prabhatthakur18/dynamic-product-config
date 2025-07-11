@@ -91,9 +91,6 @@ class DPC_Admin_Page {
                 <a href="?page=dpc-admin&tab=settings" class="nav-tab <?php echo $active_tab === 'settings' ? 'nav-tab-active' : ''; ?>">
                     <?php _e('Settings', 'dynamic-product-configurator'); ?>
                 </a>
-                <a href="?page=dpc-admin&tab=parser" class="nav-tab <?php echo $active_tab === 'parser' ? 'nav-tab-active' : ''; ?>" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-weight: bold;">
-                    <?php _e('🚀 Auto Parser', 'dynamic-product-configurator'); ?>
-                </a>
             </nav>
             
             <div class="tab-content">
