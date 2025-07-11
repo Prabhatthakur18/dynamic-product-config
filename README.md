@@ -54,18 +54,34 @@ A powerful WordPress plugin that enables CSV-based dynamic product configuration
    - Check WooCommerce → Product Configurator appears in menu
    - Database tables are created automatically
 
-### Step 3: Product Parsing (NEW APPROACH!)
+### Step 3: CSV Upload (SIMPLE & RELIABLE!)
 
-**No CSV uploads needed!** The plugin now automatically parses your existing WooCommerce products:
+**Manual CSV Upload System** - Upload your product configuration directly:
 
-1. **Go to WooCommerce → Product Configurator → 🚀 Auto Parser**
-2. **Click "Parse All Products Now"** - This will automatically:
-   - Scan all your existing WooCommerce products
-   - Extract Brand and Model from product names
-   - Create the brand/model dropdown structure
-   - Enable the configurator for matching products
+1. **Go to WooCommerce → Product Configurator → 📤 CSV Upload**
+2. **Upload your CSV file** with the following format:
+   ```csv
+   wc_product_id,brand,model,recommended_products,complementary_products
+   22181,Samsung,Galaxy S8,"22182,22188","22184,22185"
+   22182,Samsung,Galaxy S8 Plus,"22181,22188","22184,22185"
+   ```
+3. **Choose upload options**:
+   - ✅ Update existing products only
+   - ➕ Create missing products
+   - 🔄➕ Update existing & create missing
+4. **Click "🚀 Upload and Process CSV"**
 
-3. **Click "Enable for All Products"** to activate the configurator
+### Step 4: Upload Options
+
+#### **📋 Product Creation Options:**
+- **🔄 Update Existing Products Only** - Only configure products that already exist
+- **➕ Create Missing Products** - Create new WooCommerce products for missing IDs
+- **🔄➕ Update Existing & Create Missing** - Comprehensive option for both
+
+#### **⚙️ Configuration Options:**
+- **✅ Enable Configurator for All Products** - Auto-enable the configurator
+- **🔄 Overwrite Existing Configuration** - Replace existing configurations
+- **📁 Auto-create Product Categories** - Create categories automatically
 
 ### Step 4: Frontend Usage
 
