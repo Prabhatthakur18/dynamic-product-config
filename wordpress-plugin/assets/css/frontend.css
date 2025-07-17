@@ -1,0 +1,229 @@
+/* Dynamic Product Configurator Frontend Styles */
+
+.dpc-brand-model-selector {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.dpc-current-product {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.dpc-current-product h4 {
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 18px;
+}
+
+.dpc-current-selection {
+    color: #666;
+    font-style: italic;
+    margin: 0;
+}
+
+.dpc-selection-form {
+    display: grid;
+    gap: 20px;
+}
+
+.dpc-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.dpc-field-group label {
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+}
+
+.dpc-brand-select,
+.dpc-model-select {
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    background: #fff;
+    transition: border-color 0.3s ease;
+}
+
+.dpc-brand-select:focus,
+.dpc-model-select:focus {
+    outline: none;
+    border-color: #0073aa;
+    box-shadow: 0 0 0 2px rgba(0, 115, 170, 0.1);
+}
+
+.dpc-quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 150px;
+}
+
+.dpc-qty-minus,
+.dpc-qty-plus {
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+.dpc-qty-minus:hover,
+.dpc-qty-plus:hover {
+    background: #e0e0e0;
+}
+
+.dpc-quantity-input {
+    width: 60px;
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.dpc-actions {
+    margin-top: 10px;
+}
+
+.dpc-add-to-cart-btn {
+    background: #0073aa;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 300px;
+}
+
+.dpc-add-to-cart-btn:hover {
+    background: #005a87;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 115, 170, 0.3);
+}
+
+.dpc-add-to-cart-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Recommended and Interested Products */
+.dpc-recommended-products,
+.dpc-interested-products {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.dpc-recommended-products h5,
+.dpc-interested-products h5 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 16px;
+}
+
+.dpc-products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.dpc-product-card {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+    background: #fff;
+}
+
+.dpc-product-card:hover {
+    border-color: #0073aa;
+    box-shadow: 0 2px 8px rgba(0, 115, 170, 0.1);
+    transform: translateY(-2px);
+}
+
+.dpc-product-card a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.dpc-product-card img {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.dpc-product-card h6 {
+    margin: 0 0 8px 0;
+    font-size: 13px;
+    line-height: 1.3;
+    color: #333;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.dpc-product-card .price {
+    font-weight: bold;
+    color: #0073aa;
+    font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dpc-brand-model-selector {
+        padding: 15px;
+        margin: 15px 0;
+    }
+    
+    .dpc-products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 10px;
+    }
+    
+    .dpc-product-card {
+        padding: 10px;
+    }
+    
+    .dpc-product-card img {
+        height: 60px;
+    }
+    
+    .dpc-add-to-cart-btn {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+}
+
+/* Hide default WooCommerce add-to-cart when DPC is active */
+.single-product .product.dpc-enabled .cart {
+    display: none !important;
+}
+
+.single-product .product.dpc-enabled .single_add_to_cart_button {
+    display: none !important;
+}
